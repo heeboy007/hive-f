@@ -7,9 +7,14 @@ import { loadFbxModels } from './src/objects/3d/fbxmodel';
 
 document.body.appendChild( renderer.domElement );
 
-//console.log(logger);
+// Variables to control FPS
+let fps = 60; // Desired frames per second
+let interval = 1000 / fps; // Interval in milliseconds
+let lastTime = (new Date()).getTime();
+let currentTime = 0;
+let delta = 0;
 
-function preProcess() {
+async function preProcess() {
 	//font loader
 	loadFonts()
 	.then(() => {
@@ -19,7 +24,7 @@ function preProcess() {
 		lvLogger.error('loadFont is dead for some reason...');
 	});
 	//fbx loader
-	loadFbxModels()
+	await loadFbxModels()
 	.then(() => {
 		lvLogger.info('loadFbxModel success');
 	})
@@ -32,9 +37,16 @@ function preProcess() {
 function animate() {
 	requestAnimationFrame( animate );
 
-	sceneLoop();
+	currentTime = (new Date()).getTime();
+    delta = currentTime - lastTime;
 
-	renderer.render( scene, camera );
+    if (delta > interval) {
+        sceneLoop();
+		renderer.render( scene, camera );
+
+		// Save the timestamp of the last rendered frame
+        lastTime = currentTime - (delta % interval); 
+    }
 }
 
 preProcess();

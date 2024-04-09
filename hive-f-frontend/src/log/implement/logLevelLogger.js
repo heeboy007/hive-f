@@ -3,16 +3,16 @@ import Logger from '../logger';
 
 class LogLevelLogger extends Logger {
     constructor() {
-        super();
+        super("LogLevelLogger");
         log.setLevel('info');
     }
 
-    info(message) {
-        log.info(message);
+    info(...message) {
+        log.info(...message);
     }
 
-    error(message) {
-        log.error(message);
+    error(...message) {
+        log.error(...message);
     }
 }
 

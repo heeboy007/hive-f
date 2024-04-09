@@ -7,11 +7,11 @@ class Logger {
         this.name = name;
     }
 
-    info(message) {
+    info(...message) {
         throw new Error("Logger info() must be implemented");
     }
 
-    error(message) {
+    error(...message) {
         throw new Error("Logger error() must be implemented");
     }
 }

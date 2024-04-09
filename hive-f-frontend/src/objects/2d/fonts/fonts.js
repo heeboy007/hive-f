@@ -1,4 +1,5 @@
 import { FontLoader } from 'three/addons/loaders/FontLoader.js';
+import lvLogger from '../../../log/implement/logLevelLogger';
 
 let fontList = {};
 
@@ -9,7 +10,14 @@ function loadFont(url) {
             loader.load(url, ( fontObject ) => {
                 fontList[url] = fontObject;
                 resolve();
-            }, null, reject); 
+            }, 
+            (xhr) => {
+                lvLogger.info("font load : " + xhr.loaded / xhr.total * 100 + "%");
+            }, 
+            (error) => {
+                lvLogger.error(error);
+                reject();
+            }); 
         }
     );
 }
