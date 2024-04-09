@@ -1,19 +1,31 @@
 
 import { scene, camera, renderer } from './src/world/init';
-import logger from './src/log/logger';
+import lvLogger from './src/log/implement/logLevelLogger';
 import { loadFonts } from './src/objects/2d/fonts/fonts';
 import { sceneInit, sceneLoop } from './src/world/scene';
+import { loadFbxModels } from './src/objects/3d/fbxmodel';
 
 document.body.appendChild( renderer.domElement );
 
+//console.log(logger);
+
 function preProcess() {
+	//font loader
 	loadFonts()
 	.then(() => {
-		logger.info('loadFont success');
+		lvLogger.info('loadFont success');
 	})
 	.catch(() => {
-		logger.error('loadFont is dead for some reason...');
+		lvLogger.error('loadFont is dead for some reason...');
 	});
+	//fbx loader
+	loadFbxModels()
+	.then(() => {
+		lvLogger.info('loadFbxModel success');
+	})
+	.catch(() => {
+		lvLogger.error('loadFbxModel is not working.');
+	}) 
 	sceneInit();
 }
 

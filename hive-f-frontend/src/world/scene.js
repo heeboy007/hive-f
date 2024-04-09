@@ -2,6 +2,7 @@
 import { generateText } from '../objects/2d/text';
 //import square from './src/objects/2d/square';
 import edgedCube from '../objects/3d/cube';
+import { fbxModelList, getFbxModel } from '../objects/3d/fbxmodel';
 
 import { scene, camera } from "./init";
 
@@ -10,7 +11,11 @@ import { scene, camera } from "./init";
 function sceneInit() {
     //scene.add( square );
     //scene.add( text );
-    scene.add( edgedCube );
+    const male = getFbxModel(fbxModelList[0]);
+    //console.log(male);
+
+    scene.add(edgedCube);
+    //scene.add(male);
 
     camera.position.z = 5;
 }

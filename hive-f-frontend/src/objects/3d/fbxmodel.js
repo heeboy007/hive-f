@@ -1,6 +1,7 @@
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader';
+import lvLogger from '../../log/implement/logLevelLogger';
 
-let fbxModel = {}
+let fbxModel = {};
 
 function loadFbx(url) {
     const fbxLoader = new FBXLoader();
@@ -21,14 +22,28 @@ function loadFbx(url) {
                     resolve();
                 },
                 (xhr) => {
-                    console.log((xhr.loaded / xhr.total) * 100 + '% loaded')
+                    lvLogger.info((xhr.loaded / xhr.total) * 100 + '% loaded')
                 },
-                reject
+                (error) => {
+                    lvLogger.error(error);
+                    reject();
+                }
             )
         }
     );
 }
 
-export {
-    loadFbx
+export const fbxModelList = [
+    '/fbx/MALE.fbx',
+    '/fbx/FEMALE.fbx',
+];
+
+export function loadFbxModels() {
+    return Promise.all(fbxModelList.map((location) => {
+        return loadFbx(location);
+    }))
+}
+
+export function getFbxModel(url) {
+    return fbxModel[url];
 }

@@ -1,8 +1,9 @@
 import log from 'loglevel';
-import { Logger } from '../logger';
+import Logger from '../logger';
 
 class LogLevelLogger extends Logger {
     constructor() {
+        super();
         log.setLevel('info');
     }
 
@@ -15,4 +16,8 @@ class LogLevelLogger extends Logger {
     }
 }
 
-export default LogLevelLogger;
+const lvLogger = new LogLevelLogger();
+
+export default lvLogger;
+
+export { LogLevelLogger }
