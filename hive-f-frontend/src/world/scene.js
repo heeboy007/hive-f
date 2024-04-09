@@ -15,7 +15,7 @@ function sceneInit() {
     //console.log(male);
 
     scene.add(edgedCube);
-    //scene.add(male);
+    scene.add(male);
 
     camera.position.z = 5;
 }
