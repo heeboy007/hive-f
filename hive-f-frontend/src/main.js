@@ -1,9 +1,10 @@
 
-import { scene, camera, renderer } from './src/world/init';
-import lvLogger from './src/log/implement/logLevelLogger';
-import { loadFonts } from './src/objects/2d/fonts/fonts';
-import { sceneInit, sceneLoop } from './src/world/scene';
-import { loadFbxModels } from './src/objects/3d/fbxmodel';
+import { scene, camera, renderer } from './world/init';
+import lvLogger from './log/implement/logLevelLogger';
+import { loadFonts } from './objects/2d/fonts/fonts';
+import { sceneInit, sceneLoop } from './world/scene';
+import { loadFbxModels } from './objects/3d/fbxmodel';
+import { loadglTFModels } from './objects/3d/glTFmodel';
 
 document.body.appendChild( renderer.domElement );
 
@@ -30,6 +31,14 @@ async function preProcess() {
 	})
 	.catch(() => {
 		lvLogger.error('loadFbxModel is not working.');
+	}) 
+	//glTF loader
+	await loadglTFModels()
+	.then(() => {
+		lvLogger.info('loadglTFModel success');
+	})
+	.catch(() => {
+		lvLogger.error('loadglTFModel is not working.');
 	}) 
 	sceneInit();
 }
