@@ -5,6 +5,7 @@ import { loadFonts } from './objects/2d/fonts/fonts';
 import { sceneInit, sceneLoop } from './world/scene';
 import { loadFbxModels } from './objects/3d/fbxmodel';
 import { loadglTFModels } from './objects/3d/glTFmodel';
+import { loadTextures } from './objects/texture/textureLoader';
 
 document.body.appendChild( renderer.domElement );
 
@@ -24,14 +25,6 @@ async function preProcess() {
 	.catch(() => {
 		lvLogger.error('loadFont is dead for some reason...');
 	});
-	//fbx loader
-	await loadFbxModels()
-	.then(() => {
-		lvLogger.info('loadFbxModel success');
-	})
-	.catch(() => {
-		lvLogger.error('loadFbxModel is not working.');
-	}) 
 	//glTF loader
 	await loadglTFModels()
 	.then(() => {
@@ -39,6 +32,14 @@ async function preProcess() {
 	})
 	.catch(() => {
 		lvLogger.error('loadglTFModel is not working.');
+	}) 
+	//texture loader
+	await loadTextures()
+	.then(() => {
+		lvLogger.info('loadTextures success');
+	})
+	.catch(() => {
+		lvLogger.error('loadTextures is not working.');
 	}) 
 	sceneInit();
 }

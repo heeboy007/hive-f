@@ -7,6 +7,7 @@ import { createLights } from './environment/light';
 import { scene, camera, renderer } from "./init";
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import * as THREE from 'three';
+import { getTexture, textureUrlList } from '../objects/texture/textureLoader';
 
 //const text = generateText('hello world', 0x223344);
 let commonObjects = {};
@@ -27,29 +28,41 @@ function sceneInit() {
 
     // Setup OrbitControls
     const controls = new OrbitControls(camera, renderer.domElement);
+    controls.target.set(0, 1, 0); // Set the target point here
+    controls.update();
     controls.enableDamping = true; // an animation loop is required when either damping or auto-rotation are enabled
     controls.dampingFactor = 0.25;
     controls.screenSpacePanning = false;
 
     //this SHOULD be called here, since it's called after the await.
     //const male = getFbxModel(fbxModelList[0]);
-    const gltf_male = getglTFModel(glTFModelList[0]);
+    //const gltf_male = getglTFModel(glTFModelList[0]);
+    const gltf_female = getglTFModel(glTFModelList[1]);
     const light = createLights();
+
+    /*const male_texture = getTexture(textureUrlList[0]);
+    const material = new THREE.MeshStandardMaterial({ map: male_texture });
+
+    gltf_male.scene.traverse(function (child) {
+        if (child.isMesh) {
+            child.material = material;
+        }
+    });*/
 
     //scene.add(edgedCube);
     //scene.add(male);
-    scene.add(gltf_male.scene);
+    scene.add(gltf_female.scene);
     scene.add(light);
 
     commonObjects = {
         edgedCube,
-        gltf_male,
+        gltf_female,
         light
     };
 
     const silder = document.getElementById('input_silder_target');
     silder.addEventListener('input', (e) => {
-        animateMorphTargets(gltf_male.scene, e.target.value);
+        animateMorphTargets(gltf_female.scene, e.target.value);
     });
 
     //카메라에 모델을 정면에서 볼 수 있는 최적의 각도

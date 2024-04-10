@@ -27,6 +27,7 @@ function loadglTF(url) {
 
 export const glTFModelList = [
     '/glTF/MALE.glb',
+    '/glTF/FEMALE.glb'
 ];
 
 export function loadglTFModels() {
