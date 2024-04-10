@@ -23,15 +23,26 @@ function sceneInit() {
     scene.add(male);
     scene.add(light);
 
-    camera.position.z = 200;
+    commonObjects = {
+        edgedCube,
+        male,
+        light
+    };
+
+    //카메라에 모델을 정면에서 볼 수 있는 최적의 각도
+    camera.position.y = -200;
+    camera.rotation.x = 2
+    camera.rotation.y = 0;
+    camera.rotation.z = 0;
 }
 
+
+
 function sceneLoop() {
+    //lvLogger.info("x : " + x, "y : " + y, "z : " + z);
+
     edgedCube.rotation.x += 0.01;
 	edgedCube.rotation.y += 0.01;
-
-    //male.rotation.x += 0.01;
-    //male.rotation.y += 0.01;
 }
 
 export { sceneInit, sceneLoop }
