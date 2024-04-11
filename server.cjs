@@ -18,7 +18,7 @@ const httpServer = http.createServer(app);
 // const httpsServer = https.createServer(credentials, app);
 
 // Start HTTP server
-const port = process.env.SERVER_PORT || 80;
+const port = process.env.PRODUCT_PORT || 80;
 httpServer.listen(port, () => {
     console.log('HTTP server running on port 80');
 });
